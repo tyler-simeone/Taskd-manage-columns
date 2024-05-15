@@ -4,11 +4,11 @@ using MySql.Data.MySqlClient;
 
 namespace manage_columns.src.dataservice
 {
-    public class ColumnDataservice : IColumnDataservice
+    public class ColumnsDataservice : IColumnsDataservice
     { 
         private IConfiguration _configuration;
 
-        public ColumnDataservice(IConfiguration configuration)
+        public ColumnsDataservice(IConfiguration configuration)
         {
             _configuration = configuration;
         }

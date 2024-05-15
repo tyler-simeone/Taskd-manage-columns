@@ -2,7 +2,7 @@ using manage_columns.src.models;
 
 namespace manage_columns.src.repository
 {
-    public interface IColumnRepository
+    public interface IColumnsRepository
     {
         // Task<Column> GetColumn(int columnId, int userId);
 

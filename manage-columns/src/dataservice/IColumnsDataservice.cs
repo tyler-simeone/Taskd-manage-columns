@@ -2,7 +2,7 @@ using manage_columns.src.models;
 
 namespace manage_columns.src.dataservice
 {
-    public interface IColumnDataservice
+    public interface IColumnsDataservice
     {
 
         // Task<Column> GetColumn(int columnId, int userId);

@@ -13,8 +13,8 @@ var connectionString = builder.Configuration.GetConnectionString("ProjectBLocalC
 // Add services to the container.
 builder.Services.AddControllers();;
 builder.Services.AddSingleton<IRequestValidator, RequestValidator>();
-builder.Services.AddSingleton<IColumnRepository, ColumnRepository>();
-builder.Services.AddSingleton<IColumnDataservice, ColumnDataservice>();
+builder.Services.AddSingleton<IColumnsRepository, ColumnsRepository>();
+builder.Services.AddSingleton<IColumnsDataservice, ColumnsDataservice>();
 builder.Services.AddSingleton<ITasksClient, TasksClient>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

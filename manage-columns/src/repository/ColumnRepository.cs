@@ -4,14 +4,14 @@ using manage_columns.src.models;
 
 namespace manage_columns.src.repository
 {
-    public class ColumnRepository : IColumnRepository
+    public class ColumnsRepository : IColumnsRepository
     {
-        IColumnDataservice _columnDataservice;
+        IColumnsDataservice _columnsDataservice;
         ITasksClient _tasksClient;
 
-        public ColumnRepository(IColumnDataservice columnDataservice, ITasksClient tasksClient)
+        public ColumnsRepository(IColumnsDataservice columnsDataservice, ITasksClient tasksClient)
         {
-            _columnDataservice = columnDataservice;
+            _columnsDataservice = columnsDataservice;
             _tasksClient = tasksClient;
         }
 
@@ -19,7 +19,7 @@ namespace manage_columns.src.repository
         {
             try
             {
-                ColumnList columnList = await _columnDataservice.GetColumns(boardId, userId);
+                ColumnList columnList = await _columnsDataservice.GetColumns(boardId, userId);
                 columnList.Columns.ForEach(async col => 
                 {
                     var taskList = await _tasksClient.GetTasks(boardId, userId);
@@ -38,7 +38,7 @@ namespace manage_columns.src.repository
         {
             try
             {
-                _columnDataservice.CreateColumn(createColumnRequest);
+                _columnsDataservice.CreateColumn(createColumnRequest);
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace manage_columns.src.repository
         {
             try
             {
-                _columnDataservice.UpdateColumn(updateColumnRequest);
+                _columnsDataservice.UpdateColumn(updateColumnRequest);
             }
             catch (Exception ex)
             {
@@ -64,7 +64,7 @@ namespace manage_columns.src.repository
         {
             try
             {
-                _columnDataservice.DeleteColumn(columnId, userId);
+                _columnsDataservice.DeleteColumn(columnId, userId);
             }
             catch (Exception ex)
             {
