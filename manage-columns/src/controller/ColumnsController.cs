@@ -17,6 +17,29 @@ namespace manage_columns.src.controller
             _columnsRepository = columnsRepository;
         }
 
+        [HttpGet("{columnId}")]
+        [ProducesResponseType(typeof(Column), StatusCodes.Status200OK)]
+        public async Task<ActionResult<Column>> GetColumn(int columnId, int userId)
+        {
+            if (_validator.ValidateGetColumns(userId, columnId))
+            {
+                try
+                {
+                    Column column = await _columnsRepository.GetColumn(columnId, userId);
+                    return Ok(column);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                    throw;
+                }
+            }
+            else
+            {
+                return BadRequest("boardId and userId are required.");
+            }
+        }
+
         [HttpGet]
         [ProducesResponseType(typeof(ColumnList), StatusCodes.Status200OK)]
         public async Task<ActionResult<ColumnList>> GetColumns(int boardId, int userId)

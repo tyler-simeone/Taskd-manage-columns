@@ -15,16 +15,29 @@ namespace manage_columns.src.repository
             _tasksClient = tasksClient;
         }
 
+        public async Task<Column> GetColumn(int columnId, int userId)
+        {
+            try
+            {
+                return await _columnsDataservice.GetColumn(columnId, userId); 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
+            }
+        }
+
         public async Task<ColumnList> GetColumnsWithTasks(int boardId, int userId)
         {
             try
             {
                 ColumnList columnList = await _columnsDataservice.GetColumns(boardId, userId);
-                columnList.Columns.ForEach(async col => 
-                {
-                    var taskList = await _tasksClient.GetTasks(boardId, userId);
-                    taskList.Tasks.ForEach(task => col.Tasks.Add(task));
-                });
+                // columnList.Columns.ForEach(async col => 
+                // {
+                //     var taskList = await _tasksClient.GetTasks(boardId, userId);
+                //     taskList.Tasks.ForEach(task => col.Tasks.Add(task));
+                // });
                 return columnList;
             }
             catch (Exception ex)

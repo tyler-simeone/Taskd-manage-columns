@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddJsonFile("appsettings.json", optional: false);
+builder.Configuration.AddJsonFile("appsettings.Development.json", optional: false);
 var connectionString = builder.Configuration.GetConnectionString("ProjectBLocalConnection");
 
 

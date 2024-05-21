@@ -5,7 +5,7 @@ namespace manage_columns.src.dataservice
     public interface IColumnsDataservice
     {
 
-        // Task<Column> GetColumn(int columnId, int userId);
+        Task<Column> GetColumn(int columnId, int userId);
 
         // Task<ColumnList> GetColumns(int userId);
 
