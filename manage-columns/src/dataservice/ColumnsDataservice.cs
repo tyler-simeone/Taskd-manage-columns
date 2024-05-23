@@ -13,6 +13,43 @@ namespace manage_columns.src.dataservice
             _configuration = configuration;
         }
         
+        public async Task<Column> GetColumn(int columnId, int userId)
+        {
+            var connectionString = _configuration.GetConnectionString("ProjectBLocalConnection");
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string query = $"CALL ProjectB.ColumnGetByColumnIdAndUserId(@paramColumnId, @paramUserId)";
+
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@paramColumnId", columnId);
+                    command.Parameters.AddWithValue("@paramUserId", userId);
+
+                    try
+                    {
+                        await connection.OpenAsync();
+
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                Column column = ExtractColumnFromReader(reader);
+                                return column;
+                            }
+
+                            return new Column();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                        throw;
+                    }
+                }
+            }
+        }
+
         public async Task<ColumnList> GetColumns(int boardId, int userId)
         {
             var connectionString = _configuration.GetConnectionString("ProjectBLocalConnection");
