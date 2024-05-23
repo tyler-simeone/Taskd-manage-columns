@@ -1,9 +1,11 @@
 using manage_columns.src.models;
 using manage_columns.src.repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace manage_columns.src.controller
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ColumnsController : Controller
