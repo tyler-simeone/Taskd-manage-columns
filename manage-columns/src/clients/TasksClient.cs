@@ -1,4 +1,5 @@
 using System;
+using Microsoft.IdentityModel.Tokens;
 using System.Net.Http;
 using System.Threading.Tasks;
 using manage_columns.src.models;
@@ -11,13 +12,17 @@ namespace manage_columns.src.clients
     {
         private IConfiguration _configuration;
         private readonly HttpClient _client;
+        private string _conx;
 
         public TasksClient(IConfiguration configuration)
         {
             _configuration = configuration;
+            _conx = _configuration["ManageTasksLocalConnection"];
+            if (_conx.IsNullOrEmpty())
+                _conx = _configuration.GetConnectionString("ManageTasksLocalConnection");
             _client = new HttpClient
             {
-                BaseAddress = new Uri(_configuration.GetConnectionString("ManageTasksLocalConnection"))
+                BaseAddress = new Uri(_conx)
             };
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
