@@ -1,4 +1,5 @@
 using System;
+using Microsoft.IdentityModel.Tokens;
 using manage_columns.src.models;
 using MySql.Data.MySqlClient;
 
@@ -7,17 +8,19 @@ namespace manage_columns.src.dataservice
     public class ColumnsDataservice : IColumnsDataservice
     { 
         private IConfiguration _configuration;
+        private string _conx;
 
         public ColumnsDataservice(IConfiguration configuration)
         {
             _configuration = configuration;
+            _conx = _configuration["ProjectBLocalConnection"];
+            if (_conx.IsNullOrEmpty())
+                _conx = _configuration.GetConnectionString("ProjectBLocalConnection");
         }
         
         public async Task<Column> GetColumn(int columnId, int userId)
         {
-            var connectionString = _configuration.GetConnectionString("ProjectBLocalConnection");
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(_conx))
             {
                 string query = $"CALL ProjectB.ColumnGetByColumnIdAndUserId(@paramColumnId, @paramUserId)";
 
@@ -52,9 +55,7 @@ namespace manage_columns.src.dataservice
 
         public async Task<ColumnList> GetColumns(int boardId, int userId)
         {
-            var connectionString = _configuration.GetConnectionString("ProjectBLocalConnection");
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(_conx))
             {
                 string query = $"CALL ProjectB.ColumnGetAllByBoardAndUserId(@paramBoardId, @paramUserId)";
 
@@ -91,9 +92,7 @@ namespace manage_columns.src.dataservice
 
         public async void CreateColumn(CreateColumn createColumnRequest)
         {
-            var connectionString = _configuration.GetConnectionString("ProjectBLocalConnection");
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(_conx))
             {
                 string query = $"CALL ProjectB.ColumnPersist(@paramBoardId, @paramColumnName, @paramColumnDescription, @paramCreateUserId)";
 
@@ -121,9 +120,7 @@ namespace manage_columns.src.dataservice
         public async void UpdateColumn(UpdateColumn updateColumnRequest)
         {
 
-            var connectionString = _configuration.GetConnectionString("ProjectBLocalConnection");
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(_conx))
             {
                 string query = $"CALL ProjectB.ColumnUpdate(@paramColumnId, @paramColumnName, @paramColumnDescription, @paramUpdateUserId)";
 
@@ -150,9 +147,7 @@ namespace manage_columns.src.dataservice
 
         public async void DeleteColumn(int columnId, int userId)
         {
-            var connectionString = _configuration.GetConnectionString("ProjectBLocalConnection");
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(_conx))
             {
                 string query = $"CALL ProjectB.ColumnDelete(@paramColumnId, @paramUpdateUserId)";
 
