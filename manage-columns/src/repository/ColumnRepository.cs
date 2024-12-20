@@ -33,11 +33,6 @@ namespace manage_columns.src.repository
             try
             {
                 ColumnList columnList = await _columnsDataservice.GetColumns(boardId, userId);
-                // columnList.Columns.ForEach(async col => 
-                // {
-                //     var taskList = await _tasksClient.GetTasks(boardId, userId);
-                //     taskList.Tasks.ForEach(task => col.Tasks.Add(task));
-                // });
                 return columnList;
             }
             catch (Exception ex)

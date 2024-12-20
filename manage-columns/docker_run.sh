@@ -8,7 +8,7 @@ docker run -d \
   --name test-columns \
   -p 5156:80 \
   --network my_custom_network \
-  -e ProjectBLocalConnection=$PROJECT_B_LOCAL_CONX \
+  -e LocalDBConnection=$PROJECT_B_LOCAL_CONX \
   -e ManageTasksLocalConnection=$MANAGE_TASKS_LOCAL_CONX \
   -e UserPoolId=$USER_POOL_ID \
   -e Region=$REGION \

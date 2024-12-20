@@ -14,10 +14,10 @@ namespace manage_columns.src.models
         public int UserId { get; set; }
 
         public string ColumnName { get; set; }
+        
+        public int TaskCount { get; set; }
 
         public string ColumnDescription { get; set; }
-
-        public List<Task> Tasks { get; set; }
 
         public int CreateUserId { get; set; }
 
