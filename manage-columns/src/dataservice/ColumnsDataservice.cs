@@ -24,7 +24,7 @@ namespace manage_columns.src.dataservice
         {
             using (MySqlConnection connection = new(_connectionString))
             {
-                using (MySqlCommand command = new("ProjectB.ColumnGetByColumnIdAndUserId", connection))
+                using (MySqlCommand command = new("taskd_db_dev.ColumnGetByColumnIdAndUserId", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -59,7 +59,7 @@ namespace manage_columns.src.dataservice
         {
             using (MySqlConnection connection = new(_connectionString))
             {
-                using (MySqlCommand command = new("ProjectB.ColumnGetAllByBoardAndUserId", connection))
+                using (MySqlCommand command = new("taskd_db_dev.ColumnGetAllByBoardAndUserId", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -97,7 +97,7 @@ namespace manage_columns.src.dataservice
         {
             using (MySqlConnection connection = new(_connectionString))
             {
-                using (MySqlCommand command = new("ProjectB.ColumnPersist", connection))
+                using (MySqlCommand command = new("taskd_db_dev.ColumnPersist", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -125,7 +125,7 @@ namespace manage_columns.src.dataservice
 
             using (MySqlConnection connection = new(_connectionString))
             {
-                using (MySqlCommand command = new("ProjectB.ColumnUpdate", connection))
+                using (MySqlCommand command = new("taskd_db_dev.ColumnUpdate", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -152,7 +152,7 @@ namespace manage_columns.src.dataservice
         {
             using (MySqlConnection connection = new(_connectionString))
             {
-                using (MySqlCommand command = new("ProjectB.ColumnDelete", connection))
+                using (MySqlCommand command = new("taskd_db_dev.ColumnDelete", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
