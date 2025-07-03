@@ -76,7 +76,7 @@ namespace manage_columns.src.dataservice
 
                             while (reader.Read())
                             {
-                                Column column = ExtractColumnFromReader(reader);
+                                Column column = ExtractColumnFromReader(reader, true);
                                 columnList.Columns.Add(column);
                             }
 
@@ -175,37 +175,17 @@ namespace manage_columns.src.dataservice
 
         #region HELPERS
         
-        // TO DO: See if we can abstract at this level
-        private void ExecuteStoredProcedure(string procName, List<MySqlSprocParameter> sprocParams)
-        {
-            using (MySqlConnection connection = new(_connectionString))
-            {
-                using (MySqlCommand command = new(procName, connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    MySqlParameter parameter = new();
-                    
-                    sprocParams.ForEach(p => 
-                    {
-                        parameter.ParameterName = $"@{p.ParameterName}";
-                        parameter.MySqlDbType = p.DbType;
-                        parameter.Value = p.InputValue;
-                    });
-                    
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-        
-        private Column ExtractColumnFromReader(MySqlDataReader reader)
+        private Column ExtractColumnFromReader(MySqlDataReader reader, bool includeTaskCount = false)
         {
             int columnId = reader.GetInt32("ColumnId");
             int boardId = reader.GetInt32("BoardId");
             int userId = reader.GetInt32("UserId");
             string name = reader.GetString("ColumnName");
-            int taskCount = reader.GetInt32("TaskCount");
+            int taskCount = default;
+            if (includeTaskCount == true)
+            {
+                taskCount = reader.GetInt32("TaskCount");
+            }
             string description = reader.GetString("ColumnDescription");
             DateTime createDatetime = reader.GetDateTime("CreateDatetime");
             int createUserId = reader.GetInt32("CreateUserId");
