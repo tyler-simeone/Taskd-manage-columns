@@ -23,22 +23,15 @@ namespace manage_columns.src.controller
         [ProducesResponseType(typeof(Column), StatusCodes.Status200OK)]
         public async Task<ActionResult<Column>> GetColumn(int columnId, int userId)
         {
-            if (_validator.ValidateGetColumns(userId, columnId))
+            try
             {
-                try
-                {
-                    Column column = await _columnsRepository.GetColumn(columnId, userId);
-                    return Ok(column);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error: {ex.Message}");
-                    throw;
-                }
+                Column column = await _columnsRepository.GetColumn(columnId, userId);
+                return Ok(column);
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("boardId and userId are required.");
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
             }
         }
 
@@ -46,22 +39,15 @@ namespace manage_columns.src.controller
         [ProducesResponseType(typeof(ColumnList), StatusCodes.Status200OK)]
         public async Task<ActionResult<ColumnList>> GetColumns(int boardId, int userId)
         {
-            if (_validator.ValidateGetColumns(userId, boardId))
+            try
             {
-                try
-                {
-                    ColumnList columnList = await _columnsRepository.GetColumnsWithTasks(boardId, userId);
-                    return Ok(columnList);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error: {ex.Message}");
-                    throw;
-                }
+                ColumnList columnList = await _columnsRepository.GetColumnsWithTasks(boardId, userId);
+                return Ok(columnList);
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("boardId and userId are required.");
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
             }
         }
 
@@ -69,22 +55,15 @@ namespace manage_columns.src.controller
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult CreateColumn(CreateColumn createColumnRequest)
         {
-            if (_validator.ValidateCreateColumn(createColumnRequest))
+            try
             {
-                try
-                {
-                    _columnsRepository.CreateColumn(createColumnRequest);
-                    return Ok("Column Created");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error: {ex.Message}");
-                    throw;
-                }
+                _columnsRepository.CreateColumn(createColumnRequest);
+                return Ok("Column Created");
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("createColumnRequest is required.");
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
             }
         }
 
@@ -92,22 +71,15 @@ namespace manage_columns.src.controller
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult UpdateColumn(UpdateColumn updateColumnRequest)
         {
-            if (_validator.ValidateUpdateColumn(updateColumnRequest))
+            try
             {
-                try
-                {
-                    _columnsRepository.UpdateColumn(updateColumnRequest);
-                    return Ok("Column Updated");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error: {ex.Message}");
-                    throw;
-                }
+                _columnsRepository.UpdateColumn(updateColumnRequest);
+                return Ok("Column Updated");
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("updateColumnRequest is required.");
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
             }
         }
 
@@ -115,22 +87,15 @@ namespace manage_columns.src.controller
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult DeleteTask(int columnId, int userId)
         {
-            if (_validator.ValidateDeleteColumn(columnId, userId))
+            try
             {
-                try
-                {
-                    _columnsRepository.DeleteColumn(columnId, userId);
-                    return Ok("Column Deleted");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error: {ex.Message}");
-                    throw;
-                }
+                _columnsRepository.DeleteColumn(columnId, userId);
+                return Ok("Column Deleted");
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("columnId and userId are required.");
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
             }
         }
     }
